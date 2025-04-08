@@ -165,6 +165,8 @@ R 语言中的最基本数据类型主要有三种：
 
 <img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" align="left" alt="img" />
 
+
+
 #### 向量
 
 向量从数据结构上看就是一个线性表，可以看成一个数组。
