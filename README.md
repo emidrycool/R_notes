@@ -163,9 +163,7 @@ R 语言中的最基本数据类型主要有三种：
 - 因子（factor)
 - 数据框（data.frame)
 
-<img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" alt="img" align="left"/>
-
-
+<img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" align="left" alt="img" />
 
 #### 向量
 
