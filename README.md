@@ -121,9 +121,8 @@ install.package(vcd)
 ### R包的使用
 
 ```R
-library()	# 载入包
-
-require(vcd)
+install.packages('shiny') # 安装包
+library('shiny') # 加载包
 ```
 
 R软件本身也是由几个独立的包构成的
@@ -166,6 +165,8 @@ R 语言中的最基本数据类型主要有三种：
 
 <img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" alt="img" align="left"/>
 
+
+
 #### 向量
 
 向量从数据结构上看就是一个线性表，可以看成一个数组。
@@ -179,7 +180,187 @@ R 语言中的最基本数据类型主要有三种：
 
 **注意：**R 语言中的"下标"不代表偏移量，而代表第几个，也就是说是从 1 开始的！
 
+#### 列表
+
+列表是 R 语言的对象集合，可以用来保存不同类型的数据，可以是数字、字符串、向量、另一个列表、矩阵、数据框等，当然还可以包含矩阵和函数。
+
+```R
+list_data <- list("runoob", "google", c(11,22,33), 123, 51.23, 119.1)
+print(list_data)
+```
+
 #### 矩阵
+
+这种数据结构很类似于其它语言中的二维数组，但 R 提供了语言级的矩阵运算支持。
+
+以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：
+
+<img src="https://static.jyshare.com/images/mix/61f786996bcfb75972dd77712c90122bc8765269.svg" alt="img" align="left"/>
+
+R 语言的矩阵可以使用 matrix() 函数来创建，语法格式如下：
+
+```
+matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,dimnames = NULL)
+```
+
+**参数说明：**
+
+- **data** 向量，矩阵的数据
+- **nrow** 行数
+- **ncol** 列数
+- **byrow** 逻辑值，为 FALSE 按列排列，为 TRUE 按行排列
+- **dimname** 设置行和列的名称
+
+#### 数组
+
+R 语言数组创建使用 array() 函数，该函数使用向量作为输入参数，可以使用 dim 设置数组维度。
+
+array() 函数语法格式如下：
+
+```R
+array(data = NA, dim = length(data), dimnames = NULL)
+```
+
+**参数说明：**
+
+- **data** - 指定数组的数据源，可以是一个向量、矩阵或列表。
+- **dim** - 指定数组的维度，可以是一个整数向量或一个表示维度的元组，默认是一维数组。例如，**dim = c(2, 3, 4)** 表示创建一个 **2x3x4** 的三维数组。
+- **dimnames** - 可选参数，用于指定数组每个维度的名称，可以是一个包含维度名称的列表。
+
+**实例：**
+
+e.g.1
+
+```R
+# 创建两个不同长度的向量
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+
+# 创建数组
+result <- array(c(vector1,vector2),dim = c(3,3,2))
+print(result)
+
+#==================执行以上代码输出结果为==================
+, , 1
+
+     [,1] [,2] [,3]
+[1,]    5   10   13
+[2,]    9   11   14
+[3,]    3   12   15
+
+, , 2
+
+     [,1] [,2] [,3]
+[1,]    5   10   13
+[2,]    9   11   14
+[3,]    3   12   15
+```
+
+e.g.2
+
+```R
+# 创建两个不同长度的向量
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+vector3 <- c(1,2,3,4,5,6,7,8,9)
+
+# 创建数组
+result <- array(c(vector1,vector2,vector3),dim = c(3,3,2))
+print(result)
+
+#==================执行以上代码输出结果为==================
+, , 1
+
+     [,1] [,2] [,3]
+[1,]    5   10   13
+[2,]    9   11   14
+[3,]    3   12   15
+
+, , 2
+
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+```
+
+#### 因子
+
+R 语言创建因子使用 factor() 函数，向量作为输入参数。
+
+factor() 函数语法格式：
+
+```
+factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x), nmax = NA)
+```
+
+参数说明：
+
+- x：向量。
+- levels：指定各水平值, 不指定时由x的不同值来求得。
+- labels：水平的标签, 不指定时用各水平值的对应字符串。
+- exclude：排除的字符。
+- ordered：逻辑值，用于指定水平是否有序。
+- nmax：水平的上限数量。
+
+**实例：**
+
+```R
+x <- c("男", "女", "男", "男",  "女")
+sex <- factor(x)
+print(sex)
+print(is.factor(sex))
+
+#==================执行以上代码输出结果为==================
+[1] 男 女 男 男 女
+Levels: 女 男
+[1] TRUE
+```
+
+#### 数据框
+
+数据框（Data frame）可以理解成我们常说的"表格"。
+
+数据框每一列都有一个唯一的列名，长度都是相等的，同一列的数据类型需要一致，不同列的数据类型可以不一样。
+
+R 语言数据框使用 data.frame() 函数来创建，语法格式如下：
+
+```R
+data.frame(…, row.names = NULL, check.rows = FALSE,
+           check.names = TRUE, fix.empty.names = TRUE,
+           stringsAsFactors = default.stringsAsFactors())
+```
+
+- **…**: 列向量，可以是任何类型（字符型、数值型、逻辑型），一般以 tag = value 的形式表示，也可以是 value。
+- **row.names**: 行名，默认为 NULL，可以设置为单个数字、字符串或字符串和数字的向量。
+- **check.rows**: 检测行的名称和长度是否一致。
+- **check.names**: 检测数据框的变量名是否合法。
+- **fix.empty.names**: 设置未命名的参数是否自动设置名字。
+- **stringsAsFactors**: 布尔值，字符是否转换为因子，factory-fresh 的默认值是 TRUE，可以通过设置选项（stringsAsFactors=FALSE）来修改。
+
+**实例：**
+
+```R
+table = data.frame(
+    姓名 = c("张三", "李四"),
+    工号 = c("001","002"),
+    月薪 = c(1000, 2000)
+    
+)
+print(table) # 查看 table 数据
+
+#==================执行以上代码输出结果为==================
+  姓名 工号 月薪
+1 张三  001 1000
+2 李四  002 2000
+```
+
+### 数据重塑
+
+
+
+### Excel
 
 
 
