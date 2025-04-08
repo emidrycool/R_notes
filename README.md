@@ -163,11 +163,9 @@ R 语言中的最基本数据类型主要有三种：
 - 因子（factor)
 - 数据框（data.frame)
 
-<img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" align="left" alt="img" />
+<img src="https://www.runoob.com/wp-content/uploads/2020/07/52988954-D570-42FD-9CFC-90CD78D361C3.jpg" alt="img" style="zoom:150%;" />
 
-
-
-#### 向量
+### 变量
 
 向量从数据结构上看就是一个线性表，可以看成一个数组。
 
@@ -195,7 +193,7 @@ print(list_data)
 
 以下是一个由 6 个数字元素构成的 2 行 3 列的矩阵：
 
-<img src="https://static.jyshare.com/images/mix/61f786996bcfb75972dd77712c90122bc8765269.svg" alt="img" align="left"/>
+![img](https://static.jyshare.com/images/mix/61f786996bcfb75972dd77712c90122bc8765269.svg)
 
 R 语言的矩阵可以使用 matrix() 函数来创建，语法格式如下：
 
