@@ -360,6 +360,94 @@ print(table) # 查看 table 数据
 
 ### Excel
 
+R 语言读写 Excel 文件需要安装扩展包，我们可以在 R 到控制台输入以下命令来安装：
 
+```R
+install.packages("xlsx", repos = "https://mirrors.ustc.edu.cn/CRAN/")
+```
+
+查看 xlsx 是否安装成功：
+
+```R
+# 验证包是否安装
+any(grepl("xlsx",installed.packages()))
+# 载入包
+library("xlsx")
+```
 
 ## 贝叶斯网络
+
+### 基本概念
+
+贝叶斯网络（BN）是一种基于有向无环图（DAG）的概率模型，用于描述一组变量及其相互之间的条件依赖性。它在处理复杂的不确定性和关联性问题上具有很强的优势。
+
+贝叶斯网络由两个主要部分组成：
+
+1. **网络结构**：一个有向无环图，其中每个节点对应一个随机变量，弧表示变量之间的依赖关系。
+2. **条件概率表（CPT）**：每个节点的条件概率分布，给定其父节点的情况下计算。
+
+### 在R语言中构建贝叶斯网络
+
+#### 安装和加载bnlearn包
+
+首先，需要安装并加载*bnlearn*包，这是R语言中用于构建和学习贝叶斯网络的主要工具。
+
+```R
+install.packages("bnlearn")
+library(bnlearn)
+```
+
+#### 创建贝叶斯网络
+
+可以使用`bnlearn`包中的函数来创建贝叶斯网络。以下是一个简单的示例，展示了如何创建一个贝叶斯网络并进行结构学习和参数学习。
+
+```R
+# 创建数据集
+data <- data.frame(
+    状态 = factor(c("好", "坏", "好", "坏")),
+    元素 = factor(c("A", "B", "A", "B")),
+    接受 = factor(c("是", "否", "是", "否")),
+    类型 = factor(c("X", "Y", "X", "Y")),
+    颜色 = factor(c("红", "蓝", "红", "蓝"))
+)
+
+# 结构学习
+bn <- hc(data) # 使用爬山算法进行结构学习
+plot(bn) # 绘制贝叶斯网络
+
+# 参数学习
+fitted_bn <- bn.fit(bn, data)
+print(fitted_bn)
+```
+
+#### 模型验证和预测
+
+贝叶斯网络的模型验证可以通过交叉验证来评估预测准确性。以下是一个简单的交叉验证示例：
+
+```R
+# 交叉验证
+cv_results <- bn.cv(data, bn, k = 10)
+print(cv_results)
+```
+
+#### 应用案例
+
+贝叶斯网络在实际数据分析中有广泛的应用。例如，分析错颌畸形数据，通过学习贝叶斯网络，可以确定和可视化各种特征之间的相互作用，并验证一些普遍接受的假说。
+
+```R
+# 加载错颌畸形数据
+data <- read.csv("malocclusion_data.csv")
+
+# 结构学习
+bn <- hc(data)
+plot(bn)
+
+# 参数学习
+fitted_bn <- bn.fit(bn, data)
+print(fitted_bn)
+
+# 模型验证
+cv_results <- bn.cv(data, bn, k = 10)
+print(cv_results)
+```
+
